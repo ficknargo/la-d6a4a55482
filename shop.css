@@ -182,14 +182,61 @@ details.acc p{margin:0 0 1rem;color:#cfcfcf;font-size:.92rem}
   html.js .rv{opacity:1;transform:none}.drawer,.overlay,.sbar,#toast{transition:none}.dh-img img{animation:none;transform:none}.scan{display:none}.stage{scroll-behavior:auto}
 }
 
-/* nav fit on phones: logo + Play the Game + Join + Cart on one row */
-@media(max-width:760px){
-  nav{padding:.6rem 4vw;gap:.5rem;flex-wrap:nowrap}
-  nav img{height:27px}
-  nav .links{display:flex;align-items:center;white-space:nowrap}
-  nav .links a.cta,nav .links a.play-link,nav .links .cartbtn{margin-left:.5rem}
-  nav .links a.cta{font-size:.72rem;letter-spacing:.08em}
-  nav .links a.play-link{font-size:.62rem!important;padding:.1rem .5rem}
-  nav .links .cartbtn{padding:.28rem .6rem;font-size:.62rem;letter-spacing:.08em}
-  nav .links .cartbtn .cc{margin-left:.3rem}
+/* ===== burger + full-screen menu (phones / small tablets) ===== */
+.burger{display:none;width:44px;height:44px;margin-left:.6rem;background:transparent;border:1.5px solid #fff;border-radius:50%;padding:0;position:relative;color:#fff;transition:background .25s,color .25s,border-color .25s;flex:none}
+.burger span{position:absolute;left:12px;right:12px;height:2px;background:currentColor;transition:transform .35s var(--ease),opacity .2s,top .35s var(--ease)}
+.burger span:nth-child(1){top:15px}.burger span:nth-child(2){top:21px}.burger span:nth-child(3){top:27px}
+.burger[aria-expanded=true]{background:var(--acc);border-color:var(--acc);color:#000}
+.burger[aria-expanded=true] span:nth-child(1){top:21px;transform:rotate(45deg)}
+.burger[aria-expanded=true] span:nth-child(2){opacity:0}
+.burger[aria-expanded=true] span:nth-child(3){top:21px;transform:rotate(-45deg)}
+.burger:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.menu{position:fixed;inset:0;z-index:80;background:#000;display:none;flex-direction:column;justify-content:space-between;overflow-y:auto;overscroll-behavior:contain;
+  padding:calc(var(--navb,64px) + 1rem) max(6vw,env(safe-area-inset-right)) calc(1.4rem + env(safe-area-inset-bottom)) max(6vw,env(safe-area-inset-left));visibility:hidden;opacity:0;transition:opacity .3s,visibility 0s .3s}
+.menu::before{content:"";position:absolute;width:120vmax;height:120vmax;left:50%;top:60%;transform:translate(-50%,-50%);background:url(icon.png) center/contain no-repeat;opacity:.05;animation:spin 120s linear infinite;pointer-events:none}
+.menu.open{visibility:visible;opacity:1;transition:opacity .3s}
+.menu nav{position:static;display:block;padding:0;background:none;border:0;backdrop-filter:none}
+.menu ol{list-style:none;margin:0;padding:0;position:relative}
+.menu li{opacity:0;transform:translateY(22px);transition:opacity .4s,transform .5s var(--ease)}
+.menu.open li{opacity:1;transform:none;transition-delay:calc(.05s + var(--i)*.045s)}
+.menu li a{display:flex;align-items:baseline;gap:1rem;padding:.5rem 0;border-bottom:1px solid var(--line);text-decoration:none;font-family:'Archivo Black';text-transform:uppercase;letter-spacing:-.01em;font-size:clamp(1.55rem,min(9.5vw,6.4vh),3rem);line-height:1.05;color:#fff;transition:color .2s,padding-left .25s var(--ease)}
+.menu li a .n{font-family:Poppins;font-weight:900;font-style:italic;font-size:.8rem;letter-spacing:.06em;color:transparent;-webkit-text-stroke:1px var(--acc);min-width:1.6rem}
+.menu li a:hover,.menu li a:active,.menu li a:focus-visible{color:var(--acc);padding-left:.5rem;outline:0}
+.menu li a.hot{color:var(--acc)}
+.mfoot{position:relative;margin:1.2rem 0 0;color:var(--mut);font-size:.82rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:center}
+.mfoot span a{margin-left:1rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em;font-size:.72rem;text-decoration:none}
+body.menu-open nav{z-index:90}
+@media(max-width:960px){
+  nav{padding-top:.55rem;padding-bottom:.55rem;gap:.5rem;flex-wrap:nowrap}
+  nav img{height:28px}
+  .burger{display:inline-block}
+  .menu{display:flex}
+  nav .links{display:flex;align-items:center;margin-left:auto}
+  nav .links a{display:none!important}
+  nav .links .cartbtn{margin-left:0;padding:.38rem .8rem;font-size:.66rem}
+  .annc span{white-space:normal}
 }
+@media(max-width:960px) and (orientation:landscape) and (max-height:520px){.menu ol{columns:2;column-gap:2rem}.menu li{break-inside:avoid}.menu li a{font-size:clamp(1.2rem,6vh,2rem)}}
+
+/* ===== arcade window on phones: big, full-bleed ===== */
+.cab-start .m-t,.cab-start i.m-t{display:none}.cab-start i{font-style:normal}
+.fsclose{display:none}
+@media(max-width:760px){
+  #play{padding-inline:0}#play h2,#play .sub{padding-inline:5vw}
+  .cab{margin-top:1.2rem;border-radius:0;border-inline:0;padding:8px 0 12px;box-shadow:none;max-width:none}
+  .cab-top{margin-inline:8px}
+  .cab-screen{border-radius:0;border-inline:0;outline:0}
+  .cab-deck{padding:.7rem 4vw 0}
+}
+@media(pointer:coarse){
+  .cab-screen{aspect-ratio:auto;height:min(165vw,calc(100svh - 140px));min-height:420px}
+  .keys{display:none}.cab-deck{justify-content:flex-end}
+  .cab-start .m-d,.cab-start i.m-d{display:none}.cab-start b.m-t{display:block}.cab-start i.m-t{display:inline}
+}
+@media(pointer:coarse) and (orientation:landscape){.cab-screen{height:min(calc(100svh - 80px),56vw);min-height:300px}}
+/* fullscreen (real or CSS pseudo-fullscreen fallback for iOS) */
+.cab-screen.fsx{position:fixed;inset:0;z-index:200;width:100%;height:100vh;height:100dvh;min-height:0;max-height:none;aspect-ratio:auto;border:0;outline:0;border-radius:0;background:#000}
+.cab-screen.fsx .fsclose{display:inline-flex;align-items:center;gap:.4rem;position:absolute;z-index:6;top:max(8px,env(safe-area-inset-top));left:max(8px,env(safe-area-inset-left));height:44px;padding:0 .9rem 0 .8rem;border-radius:999px;border:2px solid #fff;background:#000c;color:#fff;font-weight:900;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+.cab-screen.fsx .fsclose:hover{background:var(--acc);border-color:var(--acc);color:#000}
+@media(orientation:portrait){.cab-screen.fsx iframe{top:calc(max(8px,env(safe-area-inset-top)) + 52px)}}
+@media(orientation:landscape){.cab-screen.fsx .fsclose span{display:none}.cab-screen.fsx .fsclose{width:44px;padding:0;justify-content:center}}
