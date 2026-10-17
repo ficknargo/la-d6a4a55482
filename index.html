@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Loosely Approved | Adventure & Action-Sports Travel Vlog</title>
 <meta name="description" content="Loosely Approved: an adventure travel vlog about doing the thing before anyone signs off. Approval optional. Stories guaranteed.">
 <script>document.documentElement.className+=" js"</script><meta name="theme-color" content="#000"><meta property="og:title" content="Loosely Approved"><meta property="og:image" content="logo.png">
@@ -183,7 +183,7 @@ nav .links a.play-link:hover{background:var(--acc);color:#000!important;-webkit-
 <div id="toast" role="status" aria-live="polite"></div>
 <script src="shop-config.js"></script><script src="shop.js"></script>
 <script>document.getElementById('yr').textContent=new Date().getFullYear();
-document.querySelectorAll('.thumb').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();a.parentNode.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+a.dataset.id+'?autoplay=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>'}));
+document.querySelectorAll('.thumb').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();a.parentNode.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+a.dataset.id+'?autoplay=1" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'}));
 (function(){var g=document.getElementById('game'),st=document.getElementById('start'),scr=document.getElementById('screen'),fs=document.getElementById('fs'),on=false;
 function focusGame(){try{g.focus();g.contentWindow&&g.contentWindow.focus()}catch(e){}}
 function start(){if(on){focusGame();return}on=true;g.addEventListener('load',function(){focusGame();setTimeout(focusGame,150)},{once:true});g.src=g.dataset.src;st.classList.add('off');focusGame()}
