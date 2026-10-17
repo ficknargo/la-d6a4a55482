@@ -35,7 +35,7 @@ html.touch #pbtns{display:flex;position:fixed;z-index:8;gap:8px}
 #pbtns button{width:44px;height:44px;border-radius:50%;border:2px solid #ffffffaa;background:#000000aa;color:#fff;font:bold 14px/1 monospace;padding:0}
 #pbtns button:active{background:#FFE500;color:#000;border-color:#FFE500}
 html.touch #how:not([hidden]){display:grid;position:fixed;inset:0;z-index:20;place-items:center;background:#000000d9;padding:max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom))}
-#how .card{max-width:420px;width:100%;border:2px solid #FFE500;background:#000;padding:16px;color:#fff;font:12px/1.45 monospace;text-transform:uppercase;letter-spacing:.5px}
+#how .card{max-width:420px;width:100%;max-height:100%;overflow:auto;box-sizing:border-box;border:2px solid #FFE500;background:#000;padding:16px;color:#fff;font:12px/1.45 monospace;text-transform:uppercase;letter-spacing:.5px}
 #how h2{margin:0 0 10px;color:#FFE500;font:bold 18px/1 monospace;letter-spacing:2px}
 #how .row{display:flex;gap:12px;align-items:center;margin:10px 0}
 #how .ico{flex:0 0 54px;height:54px;border-radius:50%;border:2px solid #fff;display:grid;place-items:center;color:#FFE500;font-size:20px}
@@ -43,6 +43,7 @@ html.touch #how:not([hidden]){display:grid;position:fixed;inset:0;z-index:20;pla
 #how b{color:#FFE500;font-weight:normal}
 #how button{margin-top:10px;width:100%;height:48px;background:#FFE500;border:0;color:#000;font:bold 15px/1 monospace;letter-spacing:2px}
 html.sel #tz{visibility:hidden}
+@media(max-height:430px){#how .ico{flex-basis:38px;height:38px;font-size:15px}#how .row{margin:5px 0}#how .card{padding:10px;font-size:11px}#how h2{margin-bottom:4px;font-size:15px}#how button{height:40px;margin-top:6px}}
 </style>
 </head>
 <body>
@@ -414,8 +415,8 @@ function pend(e){if(e.pointerType==='mouse')return;
  if(stk&&e.pointerId===stk.id)stickEnd();
  if(jumpIds[e.pointerId]){delete jumpIds[e.pointerId];if(!Object.keys(jumpIds).length){setKey('S',false);elJump.classList.remove('on')}}}
 document.addEventListener('pointerup',pend);document.addEventListener('pointercancel',pend);
-document.addEventListener('touchstart',function(e){if(TOUCH&&!(e.target.closest&&e.target.closest('#pbtns,#how')))e.preventDefault()},{passive:false});
-document.addEventListener('touchmove',function(e){e.preventDefault()},{passive:false});
+document.addEventListener('touchstart',function(e){if(TOUCH&&e.cancelable&&!(e.target.closest&&e.target.closest('#pbtns,#how')))e.preventDefault()},{passive:false});
+document.addEventListener('touchmove',function(e){if(e.cancelable&&!(e.target.closest&&e.target.closest('#how .card')))e.preventDefault()},{passive:false});
 document.addEventListener('contextmenu',function(e){e.preventDefault()});
 ['gesturestart','gesturechange','gestureend'].forEach(function(n){document.addEventListener(n,function(e){e.preventDefault()})});
 document.getElementById('bPause').addEventListener('click',function(){if(mode==='play')pressed.P=true});
